@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Khuia Crafts — Handmade with Heart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FFF9F5;
+      --blush: #F8E8E0;
+      --rose: #E8B4B8;
+      --dusty-rose: #C9888B;
+      --sage: #B5C9B3;
+      --deep-sage: #8FA88D;
+      --lavender: #D5C6E0;
+      --warm-brown: #6B5B50;
+      --charcoal: #3D3229;
+      --soft-white: #FEFCFA;
+      --gold: #D4A574;
+      --peach: #F5D0C5;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 99px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 1000;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 249, 245, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 2px 30px rgba(107, 91, 80, 0.06);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--dusty-rose);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+    }
+    .nav-logo:hover { opacity: 0.8; }
+    .nav-logo span { color: var(--deep-sage); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-tab {
+      text-decoration: none;
+      color: var(--warm-brown);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.3s, border-color 0.3s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .nav-tab:hover, .nav-tab.active { color: var(--dusty-rose); border-bottom-color: var(--dusty-rose); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .hamburger span {
+      width: 26px; height: 2px;
+      background: var(--warm-brown);
+      border-radius: 99px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 249, 245, 0.97);
+      backdrop-filter: blur(30px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu button {
+      background: none; border: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: color 0.3s;
+      padding: 0.5rem 1rem;
+    }
+    .mobile-menu button:hover { color: var(--dusty-rose); }
+
+    /* ─── PAGE SYSTEM ─── */
+    .pages-wrapper {
+      flex: 1;
+      margin-top: 72px;
+    }
+
+    .page {
+      display: none;
+      min-height: calc(100vh - 72px);
+    }
+    .page.active {
+      display: block;
+      animation: pageIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SHARED ─── */
+    .section-container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 28px; height: 1.5px;
+      background: var(--rose);
+      border-radius: 99px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--warm-brown);
+      max-width: 550px;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 99px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.35s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--dusty-rose), var(--rose));
+      color: white;
+      box-shadow: 0 4px 20px rgba(201, 136, 139, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201, 136, 139, 0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--warm-brown);
+      border: 1.5px solid rgba(107, 91, 80, 0.25);
+    }
+    .btn-outline:hover {
+      border-color: var(--dusty-rose);
+      color: var(--dusty-rose);
+      transform: translateY(-2px);
+    }
+
+    /* ─── PAGE: HOME ─── */
+    .page-home {
+      min-height: calc(100vh - 72px);
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+      background: linear-gradient(170deg, var(--cream) 0%, var(--blush) 40%, var(--peach) 70%, var(--rose) 100%);
+    }
+    .page-home.active { display: flex; }
+
+    .hero-decor {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .hero-decor-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      animation: float-slow 12s ease-in-out infinite;
+    }
+    .hero-decor-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--lavender) 0%, transparent 70%);
+      bottom: -50px; left: -80px;
+      animation: float-slow 10s ease-in-out infinite reverse;
+    }
+    .hero-decor-3 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, var(--sage) 0%, transparent 70%);
+      top: 20%; left: 10%;
+      animation: float-slow 14s ease-in-out infinite 2s;
+    }
+
+    @keyframes float-slow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(20px, -30px) scale(1.05); }
+      66% { transform: translate(-15px, 15px) scale(0.95); }
+    }
+
+    .petal {
+      position: absolute;
+      width: 14px; height: 22px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0;
+      pointer-events: none;
+      animation: petal-fall linear infinite;
+    }
+    @keyframes petal-fall {
+      0% { opacity: 0; transform: translateY(-60px) rotate(0deg) scale(0.5); }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(100vh) rotate(360deg) scale(1); }
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      max-width: 750px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(201, 136, 139, 0.2);
+      border-radius: 99px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      margin-bottom: 2rem;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.6; }
+    }
+    .hero-content h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    .hero-content h1 em {
+      font-style: italic;
+      color: var(--dusty-rose);
+      position: relative;
+    }
+    .hero-content h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--rose), var(--lavender));
+      border-radius: 99px;
+      opacity: 0.4;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--warm-brown);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── PAGE: ABOUT ─── */
+    .page-about {
+      padding: 5rem 2rem 4rem;
+      background: var(--soft-white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    .about-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, var(--blush), var(--peach), var(--lavender));
+      border-radius: 2rem;
+      overflow: hidden;
+    }
+    .about-visual::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      border-radius: 1.5rem;
+      pointer-events: none;
+    }
+    .flower-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; height: 100%;
+    }
+    .flower-art svg {
+      width: 65%; height: 65%;
+      filter: drop-shadow(0 8px 24px rgba(201, 136, 139, 0.15));
+    }
+    @keyframes petal-breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    .flower-svg-group {
+      animation: petal-breathe 4s ease-in-out infinite;
+      transform-origin: 120px 110px;
+    }
+    .about-text .section-desc { margin-bottom: 2rem; }
+    .about-stats {
+      display: flex; gap: 2.5rem; margin-top: 2rem;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--dusty-rose);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--warm-brown);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ─── PAGE: CRAFTS ─── */
+    .page-crafts { padding: 5rem 2rem 4rem; background: var(--cream); }
+    .gallery-header { text-align: center; margin-bottom: 3.5rem; }
+    .gallery-header .section-label { justify-content: center; }
+    .gallery-header .section-label::before { display: none; }
+    .gallery-header .section-desc { margin: 0 auto; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      border-radius: 1.25rem;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(107, 91, 80, 0.12);
+    }
+    .gallery-item:first-child { grid-row: span 2; aspect-ratio: auto; }
+    .gallery-item-bg {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover .gallery-item-bg { transform: scale(1.05); }
+    .gallery-item-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--charcoal);
+    }
+    .gallery-item-icon svg { width: 26px; height: 26px; }
+    .gallery-item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--charcoal);
+    }
+    .gallery-item-tag {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dusty-rose);
+      background: rgba(255,255,255,0.7);
+      padding: 0.25rem 0.75rem;
+      border-radius: 99px;
+      backdrop-filter: blur(4px);
+    }
+    .gi-1 .gallery-item-bg { background: linear-gradient(135deg, #FDE8D8, #F5C4C4, #E8B4B8); }
+    .gi-2 .gallery-item-bg { background: linear-gradient(135deg, #E8F0E5, #C8DBC6, #B5C9B3); }
+    .gi-3 .gallery-item-bg { background: linear-gradient(135deg, #F0E6F6, #D5C6E0, #C4B0D6); }
+    .gi-4 .gallery-item-bg { background: linear-gradient(135deg, #FFF3E0, #F5D0C5, #E8B4B8); }
+    .gi-5 .gallery-item-bg { background: linear-gradient(135deg, #E6F2F1, #C5DCD9, #A8C5C1); }
+
+    /* ─── PAGE: PHOTOS (BLOOM — A LIVING PHOTO GARDEN) ─── */
+    .page-photos {
+      min-height: calc(100vh - 72px);
+      padding: 4.5rem 1.5rem 5rem;
+      background:
+        radial-gradient(ellipse 700px 380px at 82% 8%, rgba(255, 230, 180, 0.55), transparent 65%),
+        radial-gradient(circle at 15% 90%, rgba(181, 201, 179, 0.35), transparent 55%),
+        linear-gradient(180deg,
+          #FFFDF6 0%,
+          #FFF4EB 22%,
+          #FCE7DE 48%,
+          #EFD9CF 66%,
+          #D5E1CF 88%,
+          #B9CFB0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-photos.active { display: block; }
+
+    /* Subtle paper-grain texture overlay */
+    .page-photos::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(232, 180, 184, 0.07) 1px, transparent 1.5px),
+        radial-gradient(circle at 75% 75%, rgba(143, 168, 141, 0.06) 1px, transparent 1.5px);
+      background-size: 38px 38px, 56px 56px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Sun glow in top-right */
+    .sun-glow {
+      position: absolute;
+      top: 3.5rem;
+      right: 4rem;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 220, 130, 0.5) 0%, rgba(255, 220, 130, 0.15) 35%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      /* No filter:blur — the radial gradient already fades softly */
+    }
+
+    /* Soft cloud-like blobs drifting in the background */
+    .cloud-blob {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+      /* No filter:blur — the radial gradient handles the soft edge */
+      animation: cloud-drift linear infinite;
+    }
+    .cloud-blob.cb-1 { top: 12%; left: -10%; width: 280px; height: 90px; animation-duration: 60s; }
+    .cloud-blob.cb-2 { top: 30%; left: -15%; width: 220px; height: 70px; animation-duration: 80s; animation-delay: -20s; opacity: 0.6; }
+    @keyframes cloud-drift {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(calc(100vw + 300px)); }
+    }
+
+    .photos-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      position: relative;
+      z-index: 2;
+    }
+    .photos-header.visible { opacity: 1; transform: translateY(0); }
+    .photos-header .section-label { justify-content: center; }
+    .photos-header .section-label::before { display: none; }
+    .photos-header .section-title { font-size: clamp(2rem, 4.8vw, 3rem); margin-bottom: 0.8rem; }
+    .photos-header .section-desc { margin: 0 auto; font-size: 1rem; }
+
+    /* ── Album sub-tabs ── */
+    .album-tabs {
+      display: flex;
+      gap: 0.3rem;
+      margin: 0 auto 2.5rem;
+      padding: 0.4rem;
+      max-width: fit-content;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201, 136, 139, 0.18);
+      border-radius: 99px;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 6px 22px rgba(107, 91, 80, 0.08);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease 0.25s, transform 0.6s ease 0.25s;
+      position: relative;
+      z-index: 3;
+    }
+    .photos-header.visible ~ .album-tabs { opacity: 1; transform: translateY(0); }
+
+    .album-tab {
+      padding: 0.55rem 1.2rem;
+      border-radius: 99px;
+      background: transparent;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--warm-brown);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .album-tab:hover { color: var(--dusty-rose); }
+    .album-tab.active {
+      background: linear-gradient(135deg, var(--dusty-rose), var(--rose));
+      color: white;
+      box-shadow: 0 4px 14px rgba(201, 136, 139, 0.30);
+    }
+
+    /* ── Garden scene ── */
+    .garden-scene {
+      position: relative;
+      max-width: 1180px;
+      margin: 0 auto;
+      height: 720px;
+      z-index: 2;
+      contain: layout style;
+    }
+
+    /* Grass / garden bed at the bottom */
+    .garden-bed {
+      position: absolute;
+      bottom: -20px;
+      left: -5%;
+      right: -5%;
+      height: 80px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .garden-bed svg { width: 100%; height: 100%; display: block; }
+
+    /* ── Flower bloom (each photo is the center of a flower) ── */
+    .flower-bloom {
+      position: absolute;
+      left: var(--x, 0);
+      top: var(--y, 0);
+      width: calc(220px * var(--scale, 1));
+      transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+      transform-origin: center center;
+      cursor: pointer;
+      opacity: 0;
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 2;
+      animation: flower-sway 9s ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      animation-play-state: paused;
+      /* Removed will-change — keeping it on permanently wastes compositing
+         memory. The browser promotes on hover via the :hover transition. */
+    }
+    .flower-bloom.shown {
+      opacity: 1;
+      animation-play-state: running;
+      /* Force GPU layer promotion so sway animation is composited, not re-rasterized */
+      transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) translateZ(0);
+    }
+    @keyframes flower-sway {
+      0%, 100% {
+        transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+      }
+      50% {
+        transform: translate(-50%, calc(-50% - 4px)) rotate(calc(var(--rot, 0deg) + 1.5deg));
+      }
+    }
+
+    /* SVG petals wrapper */
+    .flower-petals {
+      position: absolute;
+      inset: -35%;
+      width: 170%;
+      height: 170%;
+      z-index: 1;
+      /* Static — no animation. The flower-sway on the parent provides enough motion. */
+      transform-origin: center;
+    }
+    .flower-petals .petal {
+      transform-origin: 50% 50%;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+    }
+
+    /* Photo center — circular */
+    .flower-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      z-index: 2;
+      background: linear-gradient(135deg, var(--blush), var(--peach));
+      box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.85),
+        0 0 0 6px rgba(212, 165, 116, 0.35),
+        0 14px 32px rgba(107, 91, 80, 0.22);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+    }
+    .flower-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+    }
+    /* Tiny stamen dots ring around the photo's inner edge */
+    .flower-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+    }
+
+    .flower-caption {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 0.32rem 0.95rem;
+      border-radius: 99px;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(107, 91, 80, 0.12);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Featured (larger) bloom — show caption always */
+    .flower-bloom.featured .flower-caption {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .flower-bloom.featured .flower-photo-wrap {
+      box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.9),
+        0 0 0 7px rgba(212, 165, 116, 0.5),
+        0 0 30px rgba(212, 165, 116, 0.3),
+        0 18px 38px rgba(107, 91, 80, 0.25);
+    }
+
+    /* "Bestseller / New / Popular" tag */
+    .flower-tag {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: linear-gradient(135deg, var(--dusty-rose), var(--rose));
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.65rem;
+      border-radius: 99px;
+      box-shadow: 0 4px 12px rgba(201, 136, 139, 0.40);
+      transform: rotate(12deg);
+      z-index: 4;
+      transition: transform 0.5s ease;
+    }
+
+    /* ── Hover: open petals, brighten, lift ── */
+    .flower-bloom:hover {
+      transform: translate(-50%, calc(-50% - 12px)) rotate(0deg) scale(1.1);
+      animation-play-state: paused;
+      z-index: 20;
+    }
+    .flower-bloom:hover .flower-petals {
+      animation-play-state: paused;
+    }
+    /* Spread petals outward on hover — each petal rotates by its own --pangle plus 18deg */
+    .flower-bloom:hover .flower-petals .petal {
+      transform: rotate(calc(var(--pangle, 0deg) + 0deg)) scale(1.18);
+      /* The "+0deg" is a hook; actual spreading is via transform on .petal paths.
+         We instead animate the parent's scale + the photo's scale. */
+    }
+    .flower-bloom:hover .flower-petals {
+      transform: scale(1.22);
+    }
+    .flower-bloom:hover .flower-photo-wrap {
+      transform: scale(1.06);
+      box-shadow:
+        0 0 0 5px rgba(255, 255, 255, 0.95),
+        0 0 0 8px rgba(212, 165, 116, 0.55),
+        0 0 50px rgba(255, 220, 130, 0.45),
+        0 28px 50px rgba(107, 91, 80, 0.30);
+    }
+    .flower-bloom:hover .flower-photo {
+      transform: scale(1.08);
+      filter: saturate(1.15) contrast(1.04) brightness(1.05);
+    }
+    .flower-bloom:hover .flower-caption {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .flower-bloom:hover .flower-tag {
+      transform: rotate(0deg) scale(1.12);
+    }
+
+    /* Dim other flowers when one is hovered.
+       Removed filter:blur — blur is GPU-heavy. Opacity alone reads as dim. */
+    .garden-scene.has-hover .flower-bloom:not(:hover) {
+      opacity: 0.35;
+    }
+
+    /* ── Floating particles (pollen / petals / butterflies) ── */
+    .garden-particle {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+    }
+    .garden-particle.petal {
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: garden-petal-fall linear infinite;
+    }
+    @keyframes garden-petal-fall {
+      0%   { opacity: 0; transform: translateY(-30px) rotate(0deg) scale(0.6); }
+      10%  { opacity: 0.55; }
+      90%  { opacity: 0.35; }
+      100% { opacity: 0; transform: translateY(110vh) rotate(420deg) scale(1); }
+    }
+    /* Firefly-style sparkle for night-like accents */
+    .garden-particle.sparkle {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF4B0 0%, rgba(255, 244, 176, 0) 70%);
+      animation: sparkle-twinkle 3s ease-in-out infinite;
+    }
+    @keyframes sparkle-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4); }
+      50%      { opacity: 0.85; transform: scale(1.4); }
+    }
+
+    /* Butterfly drifting across the garden */
+    .butterfly {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      animation: butterfly-fly 22s linear infinite;
+    }
+    .butterfly svg { width: 100%; height: 100%; }
+    .butterfly .wing {
+      transform-origin: 50% 50%;
+      /* Wing flap removed for performance — the fly animation alone reads as motion */
+    }
+    @keyframes butterfly-fly {
+      0%   { opacity: 0; transform: translate(-50px, 200px) rotate(15deg); }
+      10%  { opacity: 0.85; }
+      25%  { transform: translate(30vw, 80px) rotate(-10deg); }
+      50%  { transform: translate(60vw, 220px) rotate(12deg); }
+      75%  { transform: translate(80vw, 60px) rotate(-8deg); }
+      90%  { opacity: 0.85; }
+      100% { opacity: 0; transform: translate(calc(100vw + 50px), 180px) rotate(15deg); }
+    }
+    .butterfly.b2 { animation-delay: -11s; animation-duration: 26s; }
+
+    .photos-hint {
+      text-align: center;
+      margin: 2rem auto 0;
+      font-size: 0.85rem;
+      color: var(--warm-brown);
+      font-weight: 300;
+      font-style: italic;
+      position: relative;
+      z-index: 2;
+      opacity: 0.75;
+    }
+    .photos-hint::before, .photos-hint::after {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--rose);
+      vertical-align: middle;
+      margin: 0 0.7rem;
+      opacity: 0.6;
+    }
+
+    /* ── Lightbox (theatrical bloom-in) ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(61, 50, 41, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
+    .lightbox-content {
+      position: relative;
+      max-width: 640px;
+      width: 100%;
+      background: #FEFCFA;
+      padding: 18px 18px 70px;
+      border-radius: 4px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+      transform: scale(0.6) rotate(-6deg);
+      opacity: 0;
+      transition:
+        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.4s ease;
+    }
+    .lightbox.active .lightbox-content {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    .lightbox-img {
+      display: block;
+      width: 100%;
+      max-height: calc(90vh - 120px);
+      object-fit: cover;
+      border-radius: 2px;
+    }
+    .lightbox-caption {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      right: 18px;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--charcoal);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -52px;
+      right: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.32);
+      transform: rotate(90deg);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .garden-scene {
+        height: auto;
+        min-height: 600px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem 1.5rem;
+        padding: 1rem;
+        place-items: center;
+      }
+      .flower-bloom {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        transform: translate(0, 0) rotate(var(--rot, 0deg)) !important;
+        width: 80% !important;
+        max-width: 240px;
+        animation: none;
+      }
+      .flower-bloom.shown { animation: none; }
+      .flower-bloom:hover {
+        transform: translate(0, -8px) rotate(0deg) scale(1.06) !important;
+        z-index: 10;
+      }
+      .garden-scene.has-hover .flower-bloom:not(:hover) {
+        opacity: 0.45;
+      }
+      .garden-bed { display: none; }
+      .sun-glow { width: 90px; height: 90px; top: 2rem; right: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .page-photos { padding: 3rem 1rem 4rem; }
+      .garden-scene { gap: 2rem 1rem; padding: 0.5rem; }
+      .flower-caption { font-size: 0.8rem; padding: 0.25rem 0.7rem; }
+      .album-tab { font-size: 0.72rem; padding: 0.45rem 0.85rem; }
+      .photos-hint::before, .photos-hint::after { width: 18px; margin: 0 0.45rem; }
+      .sun-glow { width: 70px; height: 70px; top: 1.5rem; right: 1.2rem; }
+      .butterfly { display: none; }
+    }
+    @media (max-width: 420px) {
+      .garden-scene { grid-template-columns: 1fr; max-width: 280px; margin: 0 auto; }
+    }
+
+    /* ─── PAGE: MISSION ─── */
+    .page-mission {
+      padding: 5rem 2rem 4rem;
+      background: linear-gradient(170deg, var(--charcoal) 0%, #4A3D33 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-mission::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(201, 136, 139, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+    .page-mission::after {
+      content: '';
+      position: absolute;
+      bottom: -200px; left: -200px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(181, 201, 179, 0.1), transparent 70%);
+      pointer-events: none;
+    }
+    .page-mission .section-label { color: var(--rose); }
+    .page-mission .section-label::before { background: var(--rose); }
+    .page-mission .section-title { color: white; }
+    .page-mission .section-desc { color: rgba(255, 255, 255, 0.65); }
+
+    .mission-header { text-align: center; margin-bottom: 3.5rem; }
+    .mission-header .section-label { justify-content: center; }
+    .mission-header .section-label::before { display: none; }
+    .mission-header .section-desc { margin: 0 auto; }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .mission-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1.5rem;
+      padding: 2.25rem 1.75rem;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(4px);
+    }
+    .mission-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(201, 136, 139, 0.25);
+      transform: translateY(-4px);
+    }
+    .mission-card-icon {
+      width: 56px; height: 56px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .mission-card-icon svg { width: 26px; height: 26px; }
+    .mci-1 { background: linear-gradient(135deg, rgba(232, 180, 184, 0.2), rgba(232, 180, 184, 0.05)); }
+    .mci-2 { background: linear-gradient(135deg, rgba(181, 201, 179, 0.2), rgba(181, 201, 179, 0.05)); }
+    .mci-3 { background: linear-gradient(135deg, rgba(213, 198, 224, 0.2), rgba(213, 198, 224, 0.05)); }
+    .mission-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; color: white; }
+    .mission-card p {
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ─── CTA (inside mission page) ─── */
+    .cta-block {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+    .cta-block .section-desc { margin: 0 auto 2rem; color: rgba(255, 255, 255, 0.55); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255, 255, 255, 0.5);
+      padding: 3rem 2rem 2rem;
+    }
+    .footer-top {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 3rem;
+      flex-wrap: wrap;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .footer-brand .nav-logo {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      max-width: 280px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .footer-links h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 1rem;
+    }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--rose); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+    .footer-heart {
+      color: var(--rose);
+      display: inline-block;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.2); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.15); }
+      60% { transform: scale(1); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-visual { max-width: 360px; margin: 0 auto; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:first-child { grid-row: span 1; aspect-ratio: 1; }
+      .mission-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+      .about-stats { justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .page-about, .page-crafts, .page-mission { padding: 4rem 1.25rem 3rem; }
+      .gallery-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+      .footer-top { flex-direction: column; align-items: center; text-align: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a class="nav-logo" onclick="switchTab('home')">khuia <span>crafts</span></a>
+    <ul class="nav-links">
+      <li><button class="nav-tab active" data-tab="home">Home</button></li>
+      <li><button class="nav-tab" data-tab="about">About</button></li>
+      <li><button class="nav-tab" data-tab="crafts">Crafts</button></li>
+      <li><button class="nav-tab" data-tab="photos">Photos</button></li>
+      <li><button class="nav-tab" data-tab="mission">Mission</button></li>
+    </ul>
+    <div class="hamburger" id="hamburger" role="button" tabindex="0" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="switchTab('home'); closeMenu()">Home</button>
+    <button onclick="switchTab('about'); closeMenu()">About</button>
+    <button onclick="switchTab('crafts'); closeMenu()">Crafts</button>
+    <button onclick="switchTab('photos'); closeMenu()">Photos</button>
+    <button onclick="switchTab('mission'); closeMenu()">Mission</button>
+  </div>
+
+  <!-- Pages -->
+  <div class="pages-wrapper">
+
+    <!-- HOME -->
+    <div class="page page-home active" id="page-home">
+      <div class="hero-decor hero-decor-1"></div>
+      <div class="hero-decor hero-decor-2"></div>
+      <div class="hero-decor hero-decor-3"></div>
+      <div class="hero-content">
+        <div class="hero-badge">Non-Profit Handmade Crafts</div>
+        <h1>Handmade<br>with <em>Love</em></h1>
+        <p class="hero-sub">Every pipe cleaner flower tells a story. Khuia Crafts creates one-of-a-kind handmade pieces, spreading warmth and creativity — one petal at a time.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="switchTab('crafts')">Explore Our Crafts</button>
+          <button class="btn btn-outline" onclick="switchTab('about')">Our Story</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="page page-about" id="page-about">
+      <div class="section-container">
+        <div class="about-grid">
+          <div class="about-visual">
+            <div class="flower-art">
+              <svg viewBox="0 0 240 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="flower-svg-group">
+                  <path d="M120 145 C120 145 118 200 116 260 C115 280 120 290 120 290" stroke="#8FA88D" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                  <path d="M118 210 C105 195 75 190 65 200 C55 210 70 225 85 228 C100 231 115 220 118 210Z" fill="#B5C9B3" stroke="#8FA88D" stroke-width="1.5" stroke-linejoin="round"/>
+                  <path d="M118 210 C100 208 78 205 68 205" stroke="#8FA88D" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                  <path d="M119 235 C132 220 162 215 172 225 C182 235 167 250 152 253 C137 256 122 245 119 235Z" fill="#A8BF9E" stroke="#7D987B" stroke-width="1.5" stroke-linejoin="round"/>
+                  <path d="M119 235 C137 233 159 230 169 230" stroke="#7D987B" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7" transform="rotate(51.4 120 110)"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7" transform="rotate(102.8 120 110)"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7" transform="rotate(154.3 120 110)"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7" transform="rotate(205.7 120 110)"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7" transform="rotate(257.1 120 110)"/>
+                  <ellipse cx="120" cy="62" rx="28" ry="42" fill="#F5D0C5" opacity="0.7" transform="rotate(308.6 120 110)"/>
+                  <ellipse cx="120" cy="75" rx="22" ry="34" fill="#E8B4B8" opacity="0.85"/>
+                  <ellipse cx="120" cy="75" rx="22" ry="34" fill="#E8B4B8" opacity="0.85" transform="rotate(60 120 110)"/>
+                  <ellipse cx="120" cy="75" rx="22" ry="34" fill="#E8B4B8" opacity="0.85" transform="rotate(120 120 110)"/>
+                  <ellipse cx="120" cy="75" rx="22" ry="34" fill="#E8B4B8" opacity="0.85" transform="rotate(180 120 110)"/>
+                  <ellipse cx="120" cy="75" rx="22" ry="34" fill="#E8B4B8" opacity="0.85" transform="rotate(240 120 110)"/>
+                  <ellipse cx="120" cy="75" rx="22" ry="34" fill="#E8B4B8" opacity="0.85" transform="rotate(300 120 110)"/>
+                  <circle cx="120" cy="110" r="16" fill="url(#centerGrad)"/>
+                  <circle cx="120" cy="110" r="16" fill="none" stroke="#C8915A" stroke-width="1" opacity="0.3"/>
+                  <circle cx="115" cy="106" r="1.5" fill="#C8915A" opacity="0.5"/>
+                  <circle cx="125" cy="106" r="1.5" fill="#C8915A" opacity="0.5"/>
+                  <circle cx="120" cy="112" r="1.5" fill="#C8915A" opacity="0.5"/>
+                  <circle cx="114" cy="114" r="1.2" fill="#C8915A" opacity="0.4"/>
+                  <circle cx="126" cy="114" r="1.2" fill="#C8915A" opacity="0.4"/>
+                  <circle cx="120" cy="103" r="1.2" fill="#C8915A" opacity="0.4"/>
+                  <defs>
+                    <radialGradient id="centerGrad" cx="0.4" cy="0.35">
+                      <stop offset="0%" stop-color="#EDCF8E"/>
+                      <stop offset="100%" stop-color="#D4A574"/>
+                    </radialGradient>
+                  </defs>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="about-text">
+            <div class="section-label">Our Story</div>
+            <h2 class="section-title">Crafted from the Heart, Made for You</h2>
+            <p class="section-desc">
+              Khuia Crafts is a non-profit dedicated to the art of handmade creation.
+              We believe in the magic of turning simple pipe cleaners into beautiful flowers,
+              bouquets, and other handcrafted treasures that brighten any room and warm any heart.
+            </p>
+            <p class="section-desc" style="margin-bottom: 0;">
+              Every piece is carefully shaped by hand, making each one truly unique.
+              Our mission goes beyond crafting — we aim to inspire creativity, bring joy,
+              and build a community of makers and dreamers.
+            </p>
+            <div class="about-stats">
+              <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Handmade</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">Non-Profit</div>
+                <div class="stat-label">Mission</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">&infin;</div>
+                <div class="stat-label">Love</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRAFTS -->
+    <div class="page page-crafts" id="page-crafts">
+      <div class="section-container">
+        <div class="gallery-header">
+          <div class="section-label">Our Creations</div>
+          <h2 class="section-title">Beautifully Crafted, Uniquely Yours</h2>
+          <p class="section-desc">From vibrant pipe cleaner bouquets to charming handmade decor, each creation is made with patience, care, and a whole lot of love.</p>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item gi-1">
+            <div class="gallery-item-bg">
+              <div class="gallery-item-icon"><i data-lucide="flower-2"></i></div>
+              <div class="gallery-item-name">Pipe Cleaner Roses</div>
+              <div class="gallery-item-tag">Bestseller</div>
+            </div>
+          </div>
+          <div class="gallery-item gi-2">
+            <div class="gallery-item-bg">
+              <div class="gallery-item-icon"><i data-lucide="flower"></i></div>
+              <div class="gallery-item-name">Bouquets</div>
+              <div class="gallery-item-tag">Custom</div>
+            </div>
+          </div>
+          <div class="gallery-item gi-3">
+            <div class="gallery-item-bg">
+              <div class="gallery-item-icon"><i data-lucide="crown"></i></div>
+              <div class="gallery-item-name">Flower Crowns</div>
+              <div class="gallery-item-tag">New</div>
+            </div>
+          </div>
+          <div class="gallery-item gi-4">
+            <div class="gallery-item-bg">
+              <div class="gallery-item-icon"><i data-lucide="lamp"></i></div>
+              <div class="gallery-item-name">Home Decor</div>
+              <div class="gallery-item-tag">Popular</div>
+            </div>
+          </div>
+          <div class="gallery-item gi-5">
+            <div class="gallery-item-bg">
+              <div class="gallery-item-icon"><i data-lucide="gift"></i></div>
+              <div class="gallery-item-name">Gift Sets</div>
+              <div class="gallery-item-tag">Seasonal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHOTOS (BLOOM — A LIVING PHOTO GARDEN) -->
+    <div class="page page-photos" id="page-photos">
+      <div class="sun-glow" aria-hidden="true"></div>
+      <div class="cloud-blob cb-1" aria-hidden="true"></div>
+      <div class="cloud-blob cb-2" aria-hidden="true"></div>
+
+      <div class="photos-header" id="photosHeader">
+        <div class="section-label">Our Gallery</div>
+        <h2 class="section-title">Where Memories Bloom</h2>
+        <p class="section-desc">A living garden of moments &mdash; each flower a memory, each petal a story. Drift your cursor through and watch them turn toward you.</p>
+      </div>
+
+      <!-- Album sub-tabs -->
+      <div class="album-tabs" id="albumTabs">
+        <button class="album-tab active" data-album="bouquets">Bouquets</button>
+        <button class="album-tab" data-album="roses">Roses</button>
+        <button class="album-tab" data-album="crowns">Crowns &amp; Decor</button>
+        <button class="album-tab" data-album="moments">Behind the Scenes</button>
+      </div>
+
+      <div class="garden-scene" id="gardenScene">
+        <!-- Garden bed silhouette at the bottom -->
+        <div class="garden-bed" aria-hidden="true">
+          <svg viewBox="0 0 1180 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,80 L0,40 Q60,20 120,35 T240,32 T360,38 T480,28 T600,34 T720,30 T840,36 T960,28 T1080,32 T1180,38 L1180,80 Z"
+                  fill="rgba(143, 168, 141, 0.35)"/>
+            <path d="M0,80 L0,55 Q40,42 80,50 T160,48 T240,52 T320,46 T400,50 T480,44 T560,50 T640,46 T720,52 T800,46 T880,50 T960,44 T1040,50 T1120,46 T1180,52 L1180,80 Z"
+                  fill="rgba(107, 142, 92, 0.4)"/>
+            <!-- Tiny grass blades -->
+            <g stroke="rgba(107, 142, 92, 0.6)" stroke-width="1.5" stroke-linecap="round" fill="none">
+              <path d="M50,55 Q52,40 55,32"/>
+              <path d="M150,50 Q153,35 158,28"/>
+              <path d="M280,52 Q283,38 287,30"/>
+              <path d="M410,46 Q413,32 418,25"/>
+              <path d="M540,50 Q543,36 548,28"/>
+              <path d="M670,46 Q673,32 678,25"/>
+              <path d="M800,50 Q803,36 808,28"/>
+              <path d="M930,46 Q933,32 938,25"/>
+              <path d="M1060,50 Q1063,36 1068,28"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Butterflies drifting through -->
+        <div class="butterfly b1" aria-hidden="true">
+          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <g class="wing">
+              <ellipse cx="20" cy="22" rx="14" ry="18" fill="#E8B4B8" opacity="0.85"/>
+              <ellipse cx="40" cy="22" rx="14" ry="18" fill="#E8B4B8" opacity="0.85"/>
+              <ellipse cx="22" cy="38" rx="9" ry="11" fill="#F5D0C5" opacity="0.85"/>
+              <ellipse cx="38" cy="38" rx="9" ry="11" fill="#F5D0C5" opacity="0.85"/>
+              <ellipse cx="20" cy="22" rx="5" ry="7" fill="#C9888B" opacity="0.5"/>
+              <ellipse cx="40" cy="22" rx="5" ry="7" fill="#C9888B" opacity="0.5"/>
+              <rect x="29" y="18" width="2" height="28" rx="1" fill="#3D3229"/>
+              <circle cx="30" cy="16" r="2.5" fill="#3D3229"/>
+            </g>
+          </svg>
+        </div>
+        <div class="butterfly b2" aria-hidden="true">
+          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <g class="wing">
+              <ellipse cx="20" cy="22" rx="14" ry="18" fill="#D5C6E0" opacity="0.85"/>
+              <ellipse cx="40" cy="22" rx="14" ry="18" fill="#D5C6E0" opacity="0.85"/>
+              <ellipse cx="22" cy="38" rx="9" ry="11" fill="#E8DCEF" opacity="0.85"/>
+              <ellipse cx="38" cy="38" rx="9" ry="11" fill="#E8DCEF" opacity="0.85"/>
+              <ellipse cx="20" cy="22" rx="5" ry="7" fill="#9B7BB5" opacity="0.5"/>
+              <ellipse cx="40" cy="22" rx="5" ry="7" fill="#9B7BB5" opacity="0.5"/>
+              <rect x="29" y="18" width="2" height="28" rx="1" fill="#3D3229"/>
+              <circle cx="30" cy="16" r="2.5" fill="#3D3229"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Flower blooms are injected by JS -->
+      </div>
+
+      <p class="photos-hint">Tap a bloom to see it up close</p>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-content">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+      </div>
+    </div>
+
+    <!-- MISSION -->
+    <div class="page page-mission" id="page-mission">
+      <div class="section-container">
+        <div class="mission-header">
+          <div class="section-label">Our Mission</div>
+          <h2 class="section-title">More Than Just Crafts</h2>
+          <p class="section-desc">We craft to spread joy, build community, and make the world a little more beautiful — one creation at a time.</p>
+        </div>
+        <div class="mission-grid">
+          <div class="mission-card">
+            <div class="mission-card-icon mci-1"><i data-lucide="heart" style="color: var(--rose)"></i></div>
+            <h3>Spreading Joy</h3>
+            <p>Every handmade piece carries a message of love and warmth. We create not just crafts, but moments of happiness for those who receive them.</p>
+          </div>
+          <div class="mission-card">
+            <div class="mission-card-icon mci-2"><i data-lucide="leaf" style="color: var(--deep-sage)"></i></div>
+            <h3>Sustainable Crafting</h3>
+            <p>We believe in mindful creation. Our process is eco-conscious, using materials thoughtfully and minimizing waste with every petal we shape.</p>
+          </div>
+          <div class="mission-card">
+            <div class="mission-card-icon mci-3"><i data-lucide="users" style="color: var(--lavender)"></i></div>
+            <h3>Building Community</h3>
+            <p>Through workshops, events, and shared creativity, we bring people together and empower others to discover the joy of handmade art.</p>
+          </div>
+        </div>
+        <div class="cta-block">
+          <h2 class="section-title" style="color: white;">Ready to Bring<br>Some Beauty Home?</h2>
+          <p class="section-desc">Whether you're looking for a custom bouquet, want to collaborate, or just want to say hello — we'd love to hear from you.</p>
+          <a href="mailto:hello@khuiacrafts.com" class="btn btn-primary">Say Hello</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="nav-logo" onclick="switchTab('home')">khuia <span>crafts</span></a>
+        <p>Handmade with love. A non-profit craft initiative bringing beauty and joy, one creation at a time.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a onclick="switchTab('about')">About Us</a></li>
+          <li><a onclick="switchTab('crafts')">Our Crafts</a></li>
+          <li><a onclick="switchTab('photos')">Photos</a></li>
+          <li><a onclick="switchTab('mission')">Mission</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Pinterest</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Khuia Crafts. All rights reserved.</span>
+      <span>Made with <span class="footer-heart">&hearts;</span> and pipe cleaners</span>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Tab System ───
+    let currentTab = 'home';
+
+    // ── Album photo data ──
+    // Each album has 6 photos. Replace picsum URLs with real photo paths when ready.
+    // `palette` controls the petal colors per album.
+    const albums = {
+      bouquets: {
+        palette: ['#E8B4B8', '#F5D0C5', '#C9888B', '#FFD8DF'],
+        photos: [
+          { url: 'https://picsum.photos/seed/khuia-bouquet-1/500/500', caption: 'Spring Whisper', tag: 'Bestseller' },
+          { url: 'https://picsum.photos/seed/khuia-bouquet-2/500/500', caption: 'Petal Promise' },
+          { url: 'https://picsum.photos/seed/khuia-bouquet-3/500/500', caption: 'Blush Garden' },
+          { url: 'https://picsum.photos/seed/khuia-bouquet-4/500/500', caption: 'Morning Bloom' },
+          { url: 'https://picsum.photos/seed/khuia-bouquet-5/500/500', caption: 'Soft Embrace' },
+          { url: 'https://picsum.photos/seed/khuia-bouquet-6/500/500', caption: 'Wildflower' },
+        ],
+      },
+      roses: {
+        palette: ['#C9888B', '#E8B4B8', '#A55F65', '#FFC0CB'],
+        photos: [
+          { url: 'https://picsum.photos/seed/khuia-rose-1/500/500', caption: 'Dusty Rose', tag: 'New' },
+          { url: 'https://picsum.photos/seed/khuia-rose-2/500/500', caption: 'Crimson Veil' },
+          { url: 'https://picsum.photos/seed/khuia-rose-3/500/500', caption: 'Peach Sorbet' },
+          { url: 'https://picsum.photos/seed/khuia-rose-4/500/500', caption: 'Ivory Bloom' },
+          { url: 'https://picsum.photos/seed/khuia-rose-5/500/500', caption: 'Velvet Heart' },
+          { url: 'https://picsum.photos/seed/khuia-rose-6/500/500', caption: 'Sweetheart' },
+        ],
+      },
+      crowns: {
+        palette: ['#D5C6E0', '#E8DCEF', '#9B7BB5', '#F0E6F6'],
+        photos: [
+          { url: 'https://picsum.photos/seed/khuia-crown-1/500/500', caption: 'Flower Crown', tag: 'Popular' },
+          { url: 'https://picsum.photos/seed/khuia-crown-2/500/500', caption: 'Fairy Wreath' },
+          { url: 'https://picsum.photos/seed/khuia-crown-3/500/500', caption: 'Garden Halo' },
+          { url: 'https://picsum.photos/seed/khuia-crown-4/500/500', caption: 'Meadow Tiara' },
+          { url: 'https://picsum.photos/seed/khuia-crown-5/500/500', caption: 'Bloom Band' },
+          { url: 'https://picsum.photos/seed/khuia-crown-6/500/500', caption: 'Petite Wreath' },
+        ],
+      },
+      moments: {
+        palette: ['#B5C9B3', '#D5E0D3', '#8FA88D', '#E8F0E5'],
+        photos: [
+          { url: 'https://picsum.photos/seed/khuia-moment-1/500/500', caption: 'Workshop' },
+          { url: 'https://picsum.photos/seed/khuia-moment-2/500/500', caption: 'Hands at Work' },
+          { url: 'https://picsum.photos/seed/khuia-moment-3/500/500', caption: 'Color Tray' },
+          { url: 'https://picsum.photos/seed/khuia-moment-4/500/500', caption: 'Pipe Cleaners' },
+          { url: 'https://picsum.photos/seed/khuia-moment-5/500/500', caption: 'Quiet Making' },
+          { url: 'https://picsum.photos/seed/khuia-moment-6/500/500', caption: 'Sweet Detail' },
+        ],
+      },
+    };
+
+    // Curated wildflower positions (x,y in % of scene, scale, rot deg, featured flag).
+    // Asymmetric, organic — never a grid.
+    const flowerPositions = [
+      { x: '14%', y: '30%', scale: 1.00, rot:  -6, featured: false },
+      { x: '38%', y: '22%', scale: 1.20, rot:   3, featured: true  }, // featured = largest, caption always visible
+      { x: '66%', y: '32%', scale: 0.92, rot:  -4, featured: false },
+      { x: '88%', y: '24%', scale: 0.85, rot:   7, featured: false },
+      { x: '24%', y: '70%', scale: 0.95, rot:   5, featured: false },
+      { x: '56%', y: '74%', scale: 1.05, rot:  -3, featured: false },
+    ];
+
+    let currentAlbum = 'bouquets';
+
+    // ── Build an SVG of 8 petals radiating from center, given a 4-color palette ──
+    function petalSVG(palette) {
+      // Two petal layers — outer ring (5 petals) + inner ring (5 petals offset by 36deg)
+      const outer = palette[0];
+      const outerDeep = palette[2];
+      const inner = palette[1];
+      const innerDeep = palette[3];
+      const grad1 = `pg-${Math.random().toString(36).slice(2, 9)}`;
+      const grad2 = `pg-${Math.random().toString(36).slice(2, 9)}`;
+      const petals = [];
+      // Outer ring — 6 large petals (reduced from 5+5=10 to just 6 outer for perf)
+      for (let i = 0; i < 6; i++) {
+        const angle = i * 60;
+        petals.push(
+          `<g class="petal" style="--pangle:${angle}deg" transform="rotate(${angle})">
+             <path d="M 0,-12 C -28,-24 -38,-78 -20,-118 C -12,-138 -5,-148 0,-148 C 5,-148 12,-138 20,-118 C 38,-78 28,-24 0,-12 Z"
+                   fill="url(#${grad1})" stroke="${outerDeep}" stroke-width="1" stroke-opacity="0.55"/>
+           </g>`
+        );
+      }
+      // Inner ring — 6 smaller petals, offset 30deg
+      for (let i = 0; i < 6; i++) {
+        const angle = i * 60 + 30;
+        petals.push(
+          `<g class="petal" style="--pangle:${angle}deg" transform="rotate(${angle})">
+             <path d="M 0,-10 C -20,-16 -26,-52 -14,-82 C -8,-96 -3,-102 0,-102 C 3,-102 8,-96 14,-82 C 26,-52 20,-16 0,-10 Z"
+                   fill="url(#${grad2})" stroke="${innerDeep}" stroke-width="0.8" stroke-opacity="0.55"/>
+           </g>`
+        );
+      }
+      return `<svg class="flower-petals" viewBox="-160 -160 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="${grad1}" cx="50%" cy="100%" r="90%">
+            <stop offset="0%"   stop-color="${outerDeep}"/>
+            <stop offset="45%"  stop-color="${outer}"/>
+            <stop offset="100%" stop-color="${outer}" stop-opacity="0.75"/>
+          </radialGradient>
+          <radialGradient id="${grad2}" cx="50%" cy="100%" r="90%">
+            <stop offset="0%"   stop-color="${innerDeep}"/>
+            <stop offset="45%"  stop-color="${inner}"/>
+            <stop offset="100%" stop-color="${inner}" stop-opacity="0.8"/>
+          </radialGradient>
+        </defs>
+        ${petals.join('')}
+      </svg>`;
+    }
+
+    // ── Build the flower garden for an album ──
+    function buildGarden(album) {
+      currentAlbum = album;
+      const data = albums[album] || albums.bouquets;
+      const scene = document.getElementById('gardenScene');
+
+      // Remove existing blooms (keep garden-bed, butterflies, etc.)
+      scene.querySelectorAll('.flower-bloom').forEach(f => f.remove());
+
+      // Shuffle the position assignments per album for variety
+      const positions = [...flowerPositions];
+      const offset = Object.keys(albums).indexOf(album);
+      for (let i = 0; i < offset; i++) positions.push(positions.shift());
+
+      data.photos.forEach((item, i) => {
+        const pos = positions[i] || positions[0];
+        const bloom = document.createElement('div');
+        bloom.className = 'flower-bloom' + (pos.featured ? ' featured' : '');
+        bloom.style.setProperty('--x', pos.x);
+        bloom.style.setProperty('--y', pos.y);
+        bloom.style.setProperty('--scale', pos.scale);
+        bloom.style.setProperty('--rot', pos.rot + 'deg');
+        bloom.style.setProperty('--delay', (i * 0.5) + 's');
+        bloom.innerHTML =
+          (item.tag ? `<span class="flower-tag">${item.tag}</span>` : '') +
+          petalSVG(data.palette) +
+          `<div class="flower-photo-wrap">
+             <img class="flower-photo" src="${item.url}" alt="${item.caption}" loading="lazy" />
+           </div>
+           <div class="flower-caption">${item.caption}</div>`;
+        bloom.addEventListener('click', () => openLightbox(item));
+        bloom.addEventListener('mouseenter', () => {
+          document.getElementById('gardenScene').classList.add('has-hover');
+        });
+        bloom.addEventListener('mouseleave', () => {
+          document.getElementById('gardenScene').classList.remove('has-hover');
+        });
+        scene.appendChild(bloom);
+        // Staggered entrance
+        setTimeout(() => bloom.classList.add('shown'), 150 + i * 130);
+      });
+    }
+
+    function switchTab(tab) {
+      if (tab === currentTab) return;
+
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+      currentTab = tab;
+
+      const page = document.getElementById('page-' + tab);
+      if (page) {
+        page.classList.add('active');
+        page.scrollTop = 0;
+      }
+
+      const tabBtn = document.querySelector(`.nav-tab[data-tab="${tab}"]`);
+      if (tabBtn) tabBtn.classList.add('active');
+
+      if (tab === 'photos') {
+        const header = document.getElementById('photosHeader');
+        header.classList.remove('visible');
+        void header.offsetWidth;
+        requestAnimationFrame(() => {
+          header.classList.add('visible');
+          buildGarden(currentAlbum);
+          startGardenParticles();
+        });
+      } else {
+        stopGardenParticles();
+      }
+    }
+
+    // ── Lightbox ──
+    function openLightbox(item) {
+      const lb = document.getElementById('lightbox');
+      document.getElementById('lightboxImg').src = item.url;
+      document.getElementById('lightboxImg').alt = item.caption;
+      document.getElementById('lightboxCaption').textContent = item.caption;
+      lb.classList.add('active');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.remove('active');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox') closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ── Floating garden particles (petals + sparkles) ──
+    let gardenPetalTimer = null;
+    let sparkleTimer = null;
+    const gardenPetalColors = ['#E8B4B8', '#F5D0C5', '#D5C6E0', '#B5C9B3', '#F8E8E0', '#C9888B'];
+    function startGardenParticles() {
+      if (gardenPetalTimer) clearInterval(gardenPetalTimer);
+      if (sparkleTimer) clearInterval(sparkleTimer);
+      const page = document.getElementById('page-photos');
+      // Pre-spawn a few petals
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => spawnGardenPetal(page), i * 300);
+      }
+      // Pre-spawn a few sparkles
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => spawnSparkle(page), i * 500);
+      }
+      gardenPetalTimer = setInterval(() => spawnGardenPetal(page), 3000);
+      sparkleTimer = setInterval(() => spawnSparkle(page), 4000);
+    }
+    function stopGardenParticles() {
+      if (gardenPetalTimer) { clearInterval(gardenPetalTimer); gardenPetalTimer = null; }
+      if (sparkleTimer)     { clearInterval(sparkleTimer);     sparkleTimer = null; }
+      const page = document.getElementById('page-photos');
+      if (page) page.querySelectorAll('.garden-particle').forEach(p => p.remove());
+    }
+    function spawnGardenPetal(page) {
+      if (!page.classList.contains('active')) return;
+      // Cap concurrent petals to avoid DOM bloat
+      if (page.querySelectorAll('.garden-particle.petal').length > 6) return;
+      const petal = document.createElement('div');
+      petal.className = 'garden-particle petal';
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.background = gardenPetalColors[Math.floor(Math.random() * gardenPetalColors.length)];
+      const dur = 9 + Math.random() * 7;
+      petal.style.animationDuration = dur + 's';
+      const w = (9 + Math.random() * 11);
+      petal.style.width = w + 'px';
+      petal.style.height = (w * 1.4) + 'px';
+      page.appendChild(petal);
+      setTimeout(() => petal.remove(), (dur + 1) * 1000);
+    }
+    function spawnSparkle(page) {
+      if (!page.classList.contains('active')) return;
+      // Cap concurrent sparkles
+      if (page.querySelectorAll('.garden-particle.sparkle').length > 4) return;
+      const s = document.createElement('div');
+      s.className = 'garden-particle sparkle';
+      s.style.left = (10 + Math.random() * 80) + '%';
+      s.style.top  = (15 + Math.random() * 70) + '%';
+      const dur = 2.5 + Math.random() * 2;
+      s.style.animationDuration = dur + 's';
+      page.appendChild(s);
+      setTimeout(() => s.remove(), (dur + 0.5) * 1000);
+    }
+
+    // Album tab clicks
+    document.querySelectorAll('.album-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.album-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        buildGarden(btn.dataset.album);
+      });
+    });
+
+    // Nav tab clicks
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+
+    // ─── Mobile Menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ─── Falling Petals (Home) ───
+    const heroEl = document.getElementById('page-home');
+    const petalColors = ['#E8B4B8', '#F5D0C5', '#D5C6E0', '#B5C9B3', '#F8E8E0', '#C9888B'];
+
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
+      petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+      petal.style.animationDelay = Math.random() * 4 + 's';
+      petal.style.width = (10 + Math.random() * 14) + 'px';
+      petal.style.height = (16 + Math.random() * 20) + 'px';
+      heroEl.appendChild(petal);
+      setTimeout(() => petal.remove(), 18000);
+    }
+    // Home page falling petals — only spawn while home is active.
+    // Previously this ran forever (even on other tabs), causing lag site-wide.
+    let homePetalTimer = null;
+    function startHomePetals() {
+      if (homePetalTimer) return;
+      homePetalTimer = setInterval(createPetal, 800);
+    }
+    function stopHomePetals() {
+      if (homePetalTimer) {
+        clearInterval(homePetalTimer);
+        homePetalTimer = null;
+      }
+      // Clean up stray petals
+      heroEl.querySelectorAll('.petal').forEach(p => p.remove());
+    }
+    // Patch switchTab to start/stop home petals
+    const _origSwitchTab = switchTab;
+    switchTab = function(tab) {
+      _origSwitchTab(tab);
+      if (tab === 'home') startHomePetals(); else stopHomePetals();
+    };
+    // Start on initial load (home is active by default)
+    startHomePetals();
+    // Removed the initial 8-petal burst — the interval alone is enough,
+    // and those setTimeouts weren't cancelled by stopHomePetals, causing leaks.
+
+    // ─── Lucide Icons ───
+    lucide.createIcons();
+  </script>
+</body>
+</html>
